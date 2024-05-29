@@ -3,5 +3,6 @@ tests/tmp/*
 tests/_output/*
 public/*
 vendor
+composer.lock
 
 tests/_data/non_readable_file
