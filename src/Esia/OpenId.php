@@ -141,10 +141,10 @@ class OpenId
      * @throws SignFailException
      * @throws AbstractEsiaException
      */
-    public function getToken(string $code): string
+    public function getToken(string $code, ?string $state = null): string
     {
         $timestamp = $this->getTimeStamp();
-        $state = $this->buildState();
+        $state = $state ?? $this->buildState();
 
         $clientSecret = $this->signer->sign(
             $this->config->getScopeString()
