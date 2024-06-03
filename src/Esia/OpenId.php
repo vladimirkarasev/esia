@@ -19,6 +19,7 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use RuntimeException;
 
@@ -48,11 +49,11 @@ class OpenId
      */
     private $config;
 
-    public function __construct(Config $config, ClientInterface $client = null)
+    public function __construct(Config $config, ClientInterface $client = null, LoggerInterface $logger = null)
     {
         $this->config = $config;
         $this->client = $client ?? new GuzzleHttpClient(new Client());
-        $this->logger = new NullLogger();
+        $this->logger = $logger ?? new NullLogger();
         $this->signer = new SignerPKCS7(
             $config->getCertPath(),
             $config->getPrivateKeyPath(),
